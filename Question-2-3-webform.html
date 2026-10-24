@@ -42,7 +42,7 @@
         <!-- Adding (Required) and required attribute to make it more accessible -->
          <!-- Adding for="name" to associate label with input -->
         <label for="name">Full name <span class="required">(Required)</span></label
-        ><input id="name" name="name" type="text" required/>
+        ><input id="name" name="name" type="text"/>
       </div>
       <div class="control">
         <!-- Adding for="biography" to associate label with input -->
@@ -52,7 +52,6 @@
           id="biography"
           name="biography"
           type="text"
-          required
           aria-describedby="biography-hint"
         ></textarea>
         <!-- adding a new line to make it text more readable -->
@@ -63,7 +62,7 @@
       <!-- using a field set, grouping related controls -->
       <fieldset>
         <!-- Changed div to legend as it gives the group the question/context -->
-        <legend>Select a Gender (Optional)</legend>
+        <legend>Select a Gender (Required)</legend>
         <div class="control">
           <!-- Adding for="male" to associate label with input -->
           <input id="gender_male" name="gender" type="radio" value="male" /><label
@@ -90,7 +89,6 @@
           name="accept_agbs"
           type="checkbox"
           value="1"
-          required
         />
         <!-- Adding for="accept_agbs" to associate label with input -->
         <label for="accept_agbs">I accept the terms and conditions (Required)</label>
@@ -157,10 +155,16 @@
               $referencedElement = $input;
             }
             // R.G. hint: fix next line ;)
-            $error = $("<a>" + message + "</a>");
+            // Had AI help understand how to connect the error to field
+            // Changed the anchor to reference the inputs id such that it will focus on the input when clicked
+            // Using referencedElement and the attribute id, this looks for null fields and links error message using the id of that input
+            $error = $("<a href='#" + $referencedElement.attr('id') + "'>" + message + "</a>");
             $error.click(function (e) {
               // If we rely on the link's href pointing to the input's ID, it doesn't trigger forms mode in screen readers
-              $referencedElement.focus();
+
+              // Had AI explain that referencedElement is a jQuery object
+              // Changing it to index 0 allows the focus to go to the corresponding html input element and focus it
+              $referencedElement[0].focus()
               return e.preventDefault();
             });
             $elementToDescribe.attr("aria-describedby", input + "_description");
@@ -168,6 +172,7 @@
 
             if ($(":not(form):focus").length === 0) {
               // See https://stackoverflow.com/questions/46134247/jquery-setting-focus-doesnt-work-in-ie11/
+              // Looked into this and it seems like this is no longer needs to be fixed
             }
           } else {
             if ($input.is(":checkbox")) {
@@ -197,7 +202,10 @@
               "You must accept our terms and conditions!"
             );
 
-            if ($(".error").length === 0) {
+              // Changing the error checking to look at the field set instead and looking for when length is 0
+              // Had AI help since I was having trouble with understanding how fieldsets were added
+              // After understanding, looking at the fieldset list and each subsequent fieldset added and seeing if the length was 0 means no more errors and returns the alert
+            if ($("fieldset.errors li").length === 0) {
               return alert("All inputs are valid.");
             }
           }
