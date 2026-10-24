@@ -25,13 +25,14 @@ a{
   color: #006b3a;
 }
 
-/* Considering adding greater outline but dont think its really needed */
+/* Considering adding a bigger outline but dont think its really needed given it already exist*/
 /* input:focus,
 button:focus{
   outline: 3px solid;
 } */
 
-/* Adding border and colour with sufficient contrast ratio to indicate focus */
+
+/* Removed the outline: none to see focus and then added border and colour with sufficient contrast ratio to indicate focus */
 main a:focus,
 .menu a:focus {
   outline: 3px solid #006b3a;
@@ -213,14 +214,18 @@ article p {
       <h1 class="logo">The Funion</h1>
       
       <!-- Maybe this could be improved with aria-activedescendant later? -->
+      <!-- Andys Response: I do not think the focus needs to be changed or managed here. More applicable to widgets -->
+
+      <!-- Dont think an aria label is needed here since theres only one nav tag -->
       <nav class="menu">
         <a href="#">Home</a>
         <a href="#">Politics</a>
-        <!-- tab index was -1, removed since html handles focus already for attributes -->
+        <!-- tab index was -1, removed since html handles focus already for anchor tags and this context is not fitting -->
         <a href="#">Business</a>
         <a href="#">Entertainment</a>
         <a href="#">Sports</a>
-        <a href="#" class="btn-search pull-right"><img src="https://raw.githubusercontent.com/udacity/ud891/2de2a0688c68809a3b453db3a24b1a59e8401459/lesson2-focus/02-dom-order/images/search.svg" alt="Search" />Search</a> 
+        <!-- added button to alt text, seems a bit more fitting / adds more than just "Search" -->
+        <a href="#" class="btn-search pull-right"><img src="https://raw.githubusercontent.com/udacity/ud891/2de2a0688c68809a3b453db3a24b1a59e8401459/lesson2-focus/02-dom-order/images/search.svg" alt="Search button" />Search</a> 
 
       </nav>
     </div>
@@ -247,8 +252,8 @@ article p {
         </div>
         <article>
           <h3 class="headline">Bee wonders if maybe everyone else is a drone and he's the only one who has it "figured out."</h3>
-          <!-- tab index was 1, changed to 0 to make the tab order flow correctly -->
-          <p><a href="#" tabindex="0"><b>Read More</b></a></p>
+          <!-- tab index was 1, changed to 0 to make the tab order flow correctly and then later removed-->
+          <p><a href="#"><b>Read More</b></a></p>
           <img src="https://github.com/udacity/ud891/blob/gh-pages/lesson2-focus/02-dom-order/images/bee.jpg?raw=true" alt="A bee on top of a flower" />
         </article>
       </div>
@@ -291,9 +296,8 @@ article p {
     </div>
     
   </main>
-    
-    </div>
   <!-- stuff can be added here :) -->
+   <!-- Moved the newsletter part to the footer, made more sense to move that content as a footer -->
   <footer>
     <div class="newsletter">
       <div class="container">
@@ -301,6 +305,7 @@ article p {
         <!-- Input didnt have aria-label, added it and was noticed from using DevTools -->
         <input type="text" aria-label="Email address input label" placeholder="Enter your email address" />
         <!-- Was onFocus but should be a onclick for better accessibility -->
+         <!-- Didnt rename function but for simplicity left it as is -->
         <button type="button" onclick="getFocus()">Sign up</button>
       </div>
   </footer>
