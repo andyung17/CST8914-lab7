@@ -291,19 +291,19 @@ article p {
     </div>
     
   </main>
-
+    
+    </div>
+  <!-- stuff can be added here :) -->
+  <footer>
     <div class="newsletter">
       <div class="container">
         <h3>Like the Funion? Consider joining our newsletter!</h3>
-        <input type="text">
+        <!-- Input didnt have aria-label, added it and was noticed from using DevTools -->
+        <input type="text" aria-label="Email address input label" placeholder="Enter your email address" />
+        <!-- Was onFocus but should be a onclick for better accessibility -->
         <button type="button" onclick="getFocus()">Sign up</button>
       </div>
-    
-    </div>
-  <!--   stuff can be added here :)
-  <footer>
   </footer>
-  -->
   
   <script>
     function getFocus() {
